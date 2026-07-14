@@ -1,0 +1,21 @@
+services:
+  bot:
+    build: .
+    container_name: telegram-booking-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - DB_PATH=/app/data/bot.db
+      - LOG_PATH=/app/logs/bot.log
+    volumes:
+      - bot-data:/app/data
+      - bot-logs:/app/logs
+    # Only needed in webhook mode - harmless to publish in polling mode too,
+    # but you can delete this block if you're staying with BOT_MODE=polling.
+    ports:
+      - "8443:8443"
+
+volumes:
+  bot-data:
+  bot-logs:
