@@ -17,6 +17,8 @@ Infrastructure: DigitalOcean VPS, Docker, nginx reverse proxy terminating TLS
 (Let's Encrypt), webhook mode, backed by a self-hosted LLM gateway reachable
 over Tailscale.
 
+![Booking flow demo](docs/demo.gif)
+
 ## What it does
 
 - **Booking flow** (`/book`): a strict, auditable state machine
