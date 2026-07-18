@@ -8,6 +8,16 @@ structured logging).
 
 ## Live demo
 
+## Case study
+
+I built this as a production-deployed Telegram bot handling appointment booking end-to-end, with a general-purpose LLM-backed FAQ layered on top.
+
+The core challenge was making a conversational interface reliable. Bookings run through an explicit state machine rather than free-form LLM parsing, so a booking can never land in a state the code doesn't recognize. All state persists to SQLite, so a restart mid-conversation doesn't lose the user's place.
+
+The stack is Python (`python-telegram-bot`, async), SQLite, and Docker. The LLM backend (OpenClaw Gateway) is self-hosted and reachable from the bot's VPS over Tailscale rather than co-located, keeping the bot server small and cheap while the LLM runs on hardware built for it. It's deployed on a DigitalOcean VPS behind nginx with a real domain and Let's Encrypt TLS, running in webhook mode.
+
+Next priorities: real calendar-availability checking (booking slots are currently a fixed list, not checked against double-booking) and a lightweight admin view of bookings.
+
 This bot is deployed and running right now — message
 **[@bookflow_demo_bot](https://t.me/bookflow_demo_bot)** on Telegram to try it.
 Try `/book` to walk through the booking flow, or ask it a general question to
